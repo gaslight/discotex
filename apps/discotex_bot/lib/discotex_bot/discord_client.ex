@@ -71,8 +71,18 @@ defmodule DiscotexBot.DiscordClient do
     Logger.info("Unhandled event: #{inspect(event)}")
   end
 
+  defp respond(commands) when is_list(commands) do
+    Enum.each(commands, &respond/1)
+  end
+
   defp respond({:message_create, message, channel_id}) do
     send_message(message, channel_id)
+  end
+
+  defp respond({:dm_create, message, user_id}) do
+    with {:ok, channel_id} <- create_dm(user_id) do
+      send_message(message, channel_id)
+    end
   end
 
   defp respond({:reaction_add, emoji_list, channel_id, message_id}) when is_list(emoji_list) do

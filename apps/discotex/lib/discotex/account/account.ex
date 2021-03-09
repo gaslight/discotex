@@ -45,6 +45,12 @@ defmodule Discotex.Account do
     Repo.get_by(User, email: email)
   end
 
+  def get_users_by_emails(emails) do
+    User
+    |> where([u], u.email in ^emails)
+    |> Repo.all()
+  end
+
   def invite_discord_user(discord_id, email) do
     with {:ok, %User{} = user} <- find_or_create_for_discord_invite(discord_id, email) do
       notify_subscribers(

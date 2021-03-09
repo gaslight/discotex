@@ -15,4 +15,6 @@ config :discotex, Discotex.OAuth.GitHub,
   authorize_url: "https://github.com/login/oauth/authorize",
   token_url: "https://github.com/login/oauth/access_token"
 
+config :discotex, team_app_api_key: System.get_env("TEAM_APP_API_KEY")
+
 import_config "#{Mix.env()}.exs"
