@@ -3,5 +3,5 @@ defmodule Discotex.TeamApp.ClientType do
   behaviour definition for api calls to the team app
   """
 
-  @callback missing_timesheets() :: {:ok, map()} | :error
+  @callback missing_timesheets() :: {:ok, [map()]} | {:error, map()}
 end

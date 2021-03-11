@@ -26,19 +26,15 @@ defmodule DiscotexBot.TimesheetReminderTest do
   end
 
   defp mock_timesheet_data do
-    %{
-      "people" => [
-        %{
-          "name" => "Tim Mecklem",
-          "work_email" => "tim@gaslight.co"
-        },
-        %{
-          "name" => "Steve Loar",
-          "work_email" => "steveloar@gaslight.co"
-        }
-      ],
-      "start_date" => "2021-02-22",
-      "end_date" => "2021-03-05"
-    }
+    [
+      %{
+        "name" => "Tim Mecklem",
+        "work_email" => "tim@gaslight.co"
+      },
+      %{
+        "name" => "Steve Loar",
+        "work_email" => "steveloar@gaslight.co"
+      }
+    ]
   end
 end

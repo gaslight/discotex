@@ -12,7 +12,7 @@ defmodule Discotex.TeamApp.Client do
              [{"X_API_KEY", "#{api_key()}"}]
            ),
          {:ok, parsed_body} <- Jason.decode(resp.body) do
-      parsed_body["people"]
+      {:ok, parsed_body["people"]}
     end
   end
 
