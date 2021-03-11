@@ -1,7 +1,8 @@
 defmodule DiscotexBot.TimesheetReminderTest do
-  use ExUnit.Case
+  use Discotex.DataCase
 
   import Mox
+  import Discotex.Factory
 
   alias DiscotexBot.Dispatch
   alias Nostrum.Struct.{Message, User}
@@ -10,6 +11,9 @@ defmodule DiscotexBot.TimesheetReminderTest do
 
   @channel_id 1234
   test "responds with list of people missing timesheet info" do
+    user1 = insert(:user)
+    user2 = insert(:user)
+
     message = %Message{
       author: %User{id: 1},
       channel_id: @channel_id,
@@ -17,23 +21,27 @@ defmodule DiscotexBot.TimesheetReminderTest do
     }
 
     Discotex.TeamApp.RubberDuckClient
-    |> expect(:missing_timesheets, fn -> {:ok, mock_timesheet_data()} end)
+    |> expect(:missing_timesheets, fn -> {:ok, mock_timesheet_data(user1, user2)} end)
 
     sent_messages = Dispatch.handle_message_create(message, nil)
 
-    assert hd(sent_messages) ==
-             {:message_create, "Sent messages to Tim Mecklem, Steve Loar"}
+    assert sent_messages ==
+             [
+               {:message_create, "Sent messages to #{user1.name}, #{user2.name}", @channel_id},
+               {:dm_create, "Please fill out your timesheet", user1.discord_id},
+               {:dm_create, "Please fill out your timesheet", user2.discord_id}
+             ]
   end
 
-  defp mock_timesheet_data do
+  defp mock_timesheet_data(user1, user2) do
     [
       %{
-        "name" => "Tim Mecklem",
-        "work_email" => "tim@gaslight.co"
+        "name" => user1.name,
+        "work_email" => user1.email
       },
       %{
-        "name" => "Steve Loar",
-        "work_email" => "steveloar@gaslight.co"
+        "name" => user2.name,
+        "work_email" => user2.email
       }
     ]
   end

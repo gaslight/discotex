@@ -11,3 +11,5 @@ config :discotex, Discotex.Repo,
   database: "discotex_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
+
+config :discotex, Discotex.TeamApp, adapter: Discotex.TeamApp.RubberDuckClient

@@ -8,10 +8,10 @@ defmodule Discotex do
   """
 
   alias Discotex.Account
-  alias Discotex.TeamApp.Client
+  alias Discotex.TeamApp
 
   def get_users_with_missing_timesheets do
-    with {:ok, people} <- Client.missing_timesheets() do
+    with {:ok, people} <- TeamApp.client().missing_timesheets() do
       people
       |> Enum.map(fn person -> person["work_email"] end)
       |> Account.get_users_by_emails()
