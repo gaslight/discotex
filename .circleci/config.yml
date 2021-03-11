@@ -22,9 +22,9 @@ jobs:
             mix local.hex --force
             mix local.rebar --force
       - run:
-         name: Start Chrome Driver
-         command: /usr/local/bin/chromedriver
-         background: true
+          name: Start Chrome Driver
+          command: /usr/local/bin/chromedriver
+          background: true
       - run:
           name: "ELIXIR_VERSION.lock"
           command: echo "${ELIXIR_VERSION}" > ELIXIR_VERSION.lock
@@ -45,9 +45,9 @@ jobs:
       #       - v1-npm-install-{{ .Branch }}
       #       - v1-npm-install
 
-      # - run:
-      #     command: npm install
-      #     working_directory: "apps/discotex_web/assets"
+      - run:
+          command: npm install
+          working_directory: "apps/discotex_web/assets"
 
       # - save_cache:
       #     key: v1-npm-install-{{ .Branch }}-{{ checksum "apps/discotex_web/assets/package-lock.json" }}
