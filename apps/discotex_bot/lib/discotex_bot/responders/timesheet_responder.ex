@@ -17,11 +17,11 @@ defmodule DiscotexBot.Responders.TimesheetResponder do
   defp do_reply(%Message{channel_id: channel_id}) do
     case Discotex.get_users_with_missing_timesheets() do
       [] ->
-        {:dm_create, "No missing timesheets!", channel_id}
+        {:message_create, "No missing timesheets!", channel_id}
 
       users_missing_timesheets ->
         messages = build_reminder_messages(users_missing_timesheets)
-        [{:dm_create, build_admin_message(users_missing_timesheets), channel_id} | messages]
+        [{:message_create, build_admin_message(users_missing_timesheets), channel_id} | messages]
     end
   end
 
