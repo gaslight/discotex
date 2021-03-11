@@ -1,4 +1,7 @@
 defmodule DiscotexBot.Responders.TimesheetResponder do
+  @moduledoc """
+  Handles command to send timesheet reminders
+  """
   alias Nostrum.Struct.Message
 
   @message_type ~r/^!timesheets$/
@@ -11,7 +14,7 @@ defmodule DiscotexBot.Responders.TimesheetResponder do
     message |> do_reply()
   end
 
-  defp do_reply(%{channel_id: channel_id}) do
+  defp do_reply(%Message{channel_id: channel_id}) do
     case Discotex.get_users_with_missing_timesheets() do
       [] ->
         {:dm_create, "No missing timesheets!", channel_id}

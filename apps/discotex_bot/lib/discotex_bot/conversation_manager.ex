@@ -1,4 +1,7 @@
 defmodule DiscotexBot.ConversationManager do
+  @moduledoc """
+  Manager for extended conversations, rather than one-off responses
+  """
   use GenServer
 
   require Logger

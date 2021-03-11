@@ -1,8 +1,11 @@
 defmodule Discotex.TeamApp.Client do
+  @moduledoc """
+  API client for interactions with the Team app
+  """
   @behaviour Discotex.TeamApp.ClientType
 
   @impl true
-  def missing_timesheets() do
+  def missing_timesheets do
     with {:ok, resp} <-
            HTTPoison.get(
              "https://team.gaslight.co/missing_timesheets",
@@ -13,7 +16,7 @@ defmodule Discotex.TeamApp.Client do
     end
   end
 
-  def api_key() do
+  def api_key do
     Application.get_env(:discotex, :team_app_api_key, "")
   end
 end

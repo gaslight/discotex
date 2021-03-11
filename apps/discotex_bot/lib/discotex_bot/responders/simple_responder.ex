@@ -66,7 +66,7 @@ defmodule DiscotexBot.Responders.SimpleResponder do
      message.channel_id}
   end
 
-  defp do_reply({:commands, %Message{channel_id: channel_id, mentions: nil}}), do: :no_action
+  defp do_reply({:commands, %Message{channel_id: _channel_id, mentions: nil}}), do: :no_action
 
   defp do_reply({:commands, %Message{channel_id: channel_id, mentions: mentions}}) do
     if mentions_discotex?(mentions) do
